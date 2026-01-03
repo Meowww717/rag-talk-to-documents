@@ -71,22 +71,10 @@ TalkToDocument/
 
 ## ⚙️ Setup & Run
 
-1. Install dependencies
-   pip install -r requirements.txt
-
-2. Set OpenAI API key
-
-Windows (PowerShell):
+```bash
+pip install -r requirements.txt
 setx OPENAI_API_KEY "your_api_key_here"
-
-3. Add documents
-   Place .txt or .pdf files into the text_files/ directory.
-
-4. Build the vector index
-   python assistant.py
-
-5. Run the application
-   streamlit run app.py
+streamlit run app.py
 
 Open the browser at: http://localhost:8501
 
