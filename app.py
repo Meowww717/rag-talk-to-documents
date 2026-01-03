@@ -8,6 +8,12 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
 
+from assistant import build_vector_store
+
+if not os.path.exists("chroma_db"):
+    build_vector_store()
+
+
 TEXTS_DIRECTORY = "text_files"
 CHROMA_DIR = "chroma_db"
 COLLECTION_NAME = "rag_docs"
