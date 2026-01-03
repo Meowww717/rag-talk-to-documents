@@ -10,6 +10,7 @@ from langchain_community.document_loaders import TextLoader, PyPDFLoader
 
 from assistant import build_vector_store
 
+
 if not os.path.exists("chroma_db"):
     build_vector_store()
 
@@ -138,7 +139,13 @@ for msg in st.session_state.chat:
 
 question = st.chat_input("Ask a question about your documents...")
 if question:
-    st.session_state.chat.append({"role": "user", "content": question})
+
+    with st.chat_message("user"):
+        st.markdown(question)
+
+    st.session_state.chat.append(
+        {"role": "user", "content": question}
+    )
 
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
@@ -154,11 +161,10 @@ if question:
                 "Keep it concise."
             )
 
-            # simple memory: last 6 messages
             history = st.session_state.chat[-6:]
             history_text = "\n".join(
-                [f"{m['role'].upper()}: {m['content']}" for m in history if m["role"] in [
-                    "user", "assistant"]]
+                [f"{m['role'].upper()}: {m['content']}"
+                 for m in history if m["role"] in ["user", "assistant"]]
             )
 
             prompt = f"""
@@ -174,8 +180,8 @@ Question:
 {question}
 """
 
-            llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
-            answer = llm.invoke(prompt).content
+        llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
+        answer = llm.invoke(prompt).content
 
         st.markdown(answer)
         if sources:
@@ -184,4 +190,5 @@ Question:
                 st.write(f"- {s}")
 
     st.session_state.chat.append(
-        {"role": "assistant", "content": answer, "sources": sources})
+        {"role": "assistant", "content": answer, "sources": sources}
+    )
