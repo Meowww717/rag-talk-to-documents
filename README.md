@@ -1,3 +1,7 @@
+## 🔗 Live Demo
+
+👉   https://rag-talk-to-documents-hyqtjvxyxm3b4gybdsftch.streamlit.app/
+
 # RAG Assistant — Talk to Documents
 
 This project is a Retrieval-Augmented Generation (RAG) assistant that allows users to ask questions about their own documents and receive grounded answers with source citations.
